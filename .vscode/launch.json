@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "D:/Projects/Londy/Version_v1.0/Backend Services/see-user/app"
+            "program": "./app"
         }
     ]
 }
