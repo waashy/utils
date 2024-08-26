@@ -2,7 +2,6 @@ package main
 
 import (
 	log "log/slog"
-	"os"
 
 	config "github.com/waashy/see-user/app/model/config"
 	"github.com/waashy/utils/config/parser"
@@ -10,12 +9,15 @@ import (
 
 const CONFIG_FILE_PATH = "../config/runConfig.json"
 
+var (
+	logger = logger.NewLogger("DEBUG")
+)
+
 func init() {}
 
 func main() {
-	logger := log.New(log.NewJSONHandler(os.Stdout, &log.HandlerOptions{Level: log.LevelDebug}))
 
-	logger.Info("Server Starting")
+	log.Info("See-User service starting")
 
 	var appConfig config.AppConfig
 
@@ -23,5 +25,7 @@ func main() {
 	if err != nil {
 		logger.Error("Failed to parse the configuration", "Err", err)
 	}
+
+	logger := logger.NewLogger("DEBUG")
 
 }

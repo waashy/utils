@@ -5,5 +5,6 @@ type ServerConfig struct {
 }
 
 type AppConfig struct {
-	Server ServerConfig `json:"server_config"`
+	Server   ServerConfig `json:"server_config"`
+	LogLevel string       `json:"log_level"`
 }
