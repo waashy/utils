@@ -1,8 +1,8 @@
 package database
 
 import (
-	config "github.com/waashy/see-user/database/config"
-	dberror "github.com/waashy/see-user/database/errors"
+	config "github.com/waashy/utils/database/config"
+	dberror "github.com/waashy/utils/database/errors"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
