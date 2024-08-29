@@ -25,12 +25,3 @@ func NewDatabase(config config.DBConfig) (*Database, error) {
 		Instance: db,
 	}, nil
 }
-
-func (db *Database) AutoMigrate(structs []interface{}) error {
-	for _, eachStruct := range structs {
-		if err := db.Instance.AutoMigrate(eachStruct); err != nil {
-			return err
-		}
-	}
-	return nil
-}
