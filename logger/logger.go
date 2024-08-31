@@ -1,8 +1,11 @@
 package logger
 
 import (
+	"log/slog"
 	log "log/slog"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 const DEBUG = "DEBUG"
@@ -34,4 +37,26 @@ func getLogLevel(logLevel string) log.Leveler {
 func NewLogger(logLevel string) (*log.Logger, error) {
 	logger := log.New(NewLogConfig(logLevel))
 	return logger, nil
+}
+
+func RequestLogger(logger *slog.Logger) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		// Log the incoming request
+		logger.Info("Incoming request",
+			slog.String("method", c.Method()),
+			slog.String("path", c.Path()),
+		)
+
+		// Continue to the next handler
+		err := c.Next()
+
+		// Log the response status
+		logger.Info("Response",
+			slog.String("method", c.Method()),
+			slog.String("path", c.Path()),
+			slog.Int("status", c.Response().StatusCode()),
+		)
+
+		return err
+	}
 }
