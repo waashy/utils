@@ -10,16 +10,13 @@ const ERROR = "ERROR"
 const WARN = "WARN"
 const INFO = "INFO"
 
-func NewLogger(logLevel string) (*log.Logger, error) {
-	logger := log.New(log.NewJSONHandler(os.Stdout, &log.HandlerOptions{
+func NewLogConfig(logLevel string) *log.JSONHandler {
+	return log.NewJSONHandler(os.Stdout, &log.HandlerOptions{
 		Level: getLogLevel(logLevel),
-	}))
-
-	return logger, nil
+	})
 }
 
 func getLogLevel(logLevel string) log.Leveler {
-
 	switch logLevel {
 	case DEBUG:
 		return log.LevelDebug
@@ -32,4 +29,9 @@ func getLogLevel(logLevel string) log.Leveler {
 	default:
 		return log.LevelInfo
 	}
+}
+
+func NewLogger(logLevel string) (*log.Logger, error) {
+	logger := log.New(NewLogConfig(logLevel))
+	return logger, nil
 }
