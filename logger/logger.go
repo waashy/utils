@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"log/slog"
 	log "log/slog"
 	"os"
 
@@ -39,12 +38,12 @@ func NewLogger(logLevel string) (*log.Logger, error) {
 	return logger, nil
 }
 
-func RequestLogger(logger *slog.Logger) fiber.Handler {
+func RequestLogger(logger *log.Logger) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Log the incoming request
 		logger.Info("Incoming request",
-			slog.String("method", c.Method()),
-			slog.String("path", c.Path()),
+			log.String("method", c.Method()),
+			log.String("path", c.Path()),
 		)
 
 		// Continue to the next handler
@@ -52,9 +51,9 @@ func RequestLogger(logger *slog.Logger) fiber.Handler {
 
 		// Log the response status
 		logger.Info("Response",
-			slog.String("method", c.Method()),
-			slog.String("path", c.Path()),
-			slog.Int("status", c.Response().StatusCode()),
+			log.String("method", c.Method()),
+			log.String("path", c.Path()),
+			log.Int("status", c.Response().StatusCode()),
 		)
 
 		return err
