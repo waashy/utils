@@ -44,7 +44,7 @@ func RequestLogger(logger *log.Logger) fiber.Handler {
 		logger.Info("Incoming request",
 			log.String("method", c.Method()),
 			log.String("path", c.Path()),
-			"body", string(c.Body()),
+			"body", string(c.BodyRaw()),
 			"request", c.Request(),
 		)
 
