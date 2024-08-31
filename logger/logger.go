@@ -44,6 +44,7 @@ func RequestLogger(logger *log.Logger) fiber.Handler {
 		logger.Info("Incoming request",
 			log.String("method", c.Method()),
 			log.String("path", c.Path()),
+			"body", c.Request(),
 		)
 
 		// Continue to the next handler
@@ -54,6 +55,7 @@ func RequestLogger(logger *log.Logger) fiber.Handler {
 			log.String("method", c.Method()),
 			log.String("path", c.Path()),
 			log.Int("status", c.Response().StatusCode()),
+			"response", c.Response(),
 		)
 
 		return err
